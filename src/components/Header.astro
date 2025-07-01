@@ -1,0 +1,83 @@
+---
+// src/components/Header.astro
+
+// 1. "Contact Us" is removed from the array, as it has a dedicated button.
+const navLinks = [
+  { href: "/", text: "Home" },
+  { href: "/services", text: "Services" },
+  { href: "/packages", text: "Packages" },
+  { href: "/cost-estimator", text: "Cost Estimator" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+<header 
+  class="bg-white shadow sticky top-0 z-50" 
+  x-data="{ open: false }"
+>
+  <div class="container mx-auto flex items-center justify-between px-4 py-3">
+    <!-- Logo -->
+    <a href="/" aria-label="Structo Builders Home">
+      <img src="/structologo.png" alt="Structo Builders Logo" class="h-10 w-auto" />
+    </a>
+
+    <!-- Mobile Hamburger -->
+    <button
+      @click="open = !open"
+      :aria-expanded="open.toString()"
+      aria-label="Toggle Menu"
+      aria-controls="mobile-menu"
+      class="text-gray-700 focus:outline-none md:hidden"
+    >
+      <!-- SVG icon here -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+    </button>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center space-x-8">
+      {navLinks.map(link => (
+        <a 
+          href={link.href} 
+          class:list={[
+            "text-sm hover:text-orange-600 transition-colors",
+            link.href === currentPath ? 'text-orange-600 ' : 'text-gray-700'
+          ]}
+          aria-current={link.href === currentPath ? "page" : false}
+        >
+          {link.text}
+        </a>
+      ))}
+      <a href="/contact" class="ml-4 px-4 py-2 bg-orange-600 text-white text-sm rounded hover:bg-orange-700 transition">
+        Let's Build
+      </a>
+    </nav>
+  </div>
+
+  <!-- Mobile Dropdown -->
+  <div 
+    id="mobile-menu"
+    x-show="open"
+    x-transition
+    x-cloak
+    @click.away="open = false"
+    class="md:hidden bg-white shadow-lg"
+  >
+    <div class="space-y-2 px-4 py-3">
+      {navLinks.map(link => (
+        <a 
+          href={link.href}
+          class:list={[
+            "block text-sm font-medium hover:text-orange-600",
+            link.href === currentPath ? 'text-orange-600' : 'text-gray-700'
+          ]}
+          aria-current={link.href === currentPath ? "page" : false}
+        >
+          {link.text}
+        </a>
+      ))}
+      <a href="/contact" class="block w-full text-center mt-3 px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition">
+        Let's Build
+      </a>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroSection from "../components/HeroSection.astro";
+
+
+const title = "Structo Builders - We Build Your Dreams";
+const description =
+	"Structo Builders is a top-rated construction company delivering quality infrastructure and residential projects.";
+---
+
+<BaseLayout {title} {description}>
+	<HeroSection/>
+
+	<section style="background:#f5f5f5; padding:1rem; margin-top:1rem;">
+		<h2>Our Services</h2>
+		<ul>
+			<li>🏠 Residential</li>
+			<li>🏢 Commercial</li>
+			<li>🛣 Infrastructure</li>
+		</ul>
+	</section>
+
+	<section>
+		<h2>Contact Us</h2>
+		<p>
+			Email: <a href="mailto:info@structobuilders.com"
+				>info@structobuilders.com</a>
+		</p>
+	</section>
+</BaseLayout>
